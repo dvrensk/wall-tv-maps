@@ -1,0 +1,48 @@
+name: "test_simple"
+title: "Test Map - Simple"
+description: "A simple test map to verify the system is working correctly"
+
+# Output settings
+output_width: 4000
+output_height: 2250
+background_color: "#f0f8ff"
+
+# Map bounds (Spain)
+bounds:
+  west: -1100000
+  east: 500000
+  south: 4200000
+  north: 5500000
+
+# Data layers (minimal set for testing)
+layers:
+  countries:
+    file: "raw/ne_10m_admin_0_countries/ne_10m_admin_0_countries.shp"
+    filter: "NAME == 'Spain'"
+    style:
+      fill_color: "#e6f3e6"
+      stroke_color: "#333333"
+      stroke_width: 3
+      opacity: 1.0
+      zorder: 1
+    labels:
+      field: "NAME"
+      font_size: 48
+      font_color: "white"
+      font_weight: "bold"
+
+  coastline:
+    file: "raw/ne_10m_coastline/ne_10m_coastline.shp"
+    style:
+      fill_color: "none"
+      stroke_color: "#1f77b4"
+      stroke_width: 2
+      opacity: 1.0
+      zorder: 2
+
+# Test label
+test_label:
+  text: "Sistema de Mapas Funcionando"
+  position: [-300000, 4600000]
+  font_size: 32
+  font_color: "red"

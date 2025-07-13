@@ -1,0 +1,35 @@
+version: '3.8'
+
+services:
+  maps:
+    build:
+      context: ..
+      dockerfile: docker/Dockerfile
+    volumes:
+      - ..:/app
+      - ../data:/app/data
+      - ../output:/app/output
+      - /tmp/.X11-unix:/tmp/.X11-unix:rw
+    environment:
+      - DISPLAY=${DISPLAY}
+      - PYTHONPATH=/app/scripts
+      - PGUSER=docker
+      - PGDATABASE=gis
+    network_mode: host
+    stdin_open: true
+    tty: true
+    working_dir: /app
+
+  postgres:
+    image: postgis/postgis:14-3.2
+    environment:
+      - POSTGRES_DB=gis
+      - POSTGRES_USER=docker
+      - POSTGRES_PASSWORD=docker
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    ports:
+      - "5432:5432"
+
+volumes:
+  postgres_data:

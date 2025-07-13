@@ -1,0 +1,113 @@
+name: "gijon_districts"
+title: "Distritos de Gijón"
+description: "Map of Gijón city districts and neighborhoods with main roads"
+
+# Output settings
+output_width: 4000
+output_height: 2250
+background_color: "#f0f8ff"
+
+# Map bounds (Gijón city)
+bounds:
+  west: -635000
+  east: -580000
+  south: 4885000
+  north: 4910000
+
+# Data layers
+layers:
+  gijon_boundary:
+    file: "processed/gijon_boundary.geojson"
+    style:
+      fill_color: "#e6f3e6"
+      stroke_color: "#333333"
+      stroke_width: 4
+      opacity: 0.9
+      zorder: 1
+
+  coastline:
+    file: "raw/ne_10m_coastline/ne_10m_coastline.shp"
+    style:
+      fill_color: "none"
+      stroke_color: "#1f77b4"
+      stroke_width: 4
+      opacity: 1.0
+      zorder: 2
+
+# Custom district labels (major neighborhoods)
+custom_labels:
+  - name: "Centro"
+    position: [-607000, 4895000]
+    text: "Centro"
+  - name: "Cimadevilla"
+    position: [-604000, 4897000]
+    text: "Cimadevilla"
+  - name: "El Llano"
+    position: [-610000, 4894000]
+    text: "El Llano"
+  - name: "Somió"
+    position: [-595000, 4900000]
+    text: "Somió"
+  - name: "Tremañes"
+    position: [-600000, 4890000]
+    text: "Tremañes"
+  - name: "El Natahoyo"
+    position: [-615000, 4897000]
+    text: "El Natahoyo"
+  - name: "Jove"
+    position: [-590000, 4897000]
+    text: "Jove"
+  - name: "Nuevo Gijón"
+    position: [-612000, 4890000]
+    text: "Nuevo Gijón"
+  - name: "Montevil"
+    position: [-620000, 4892000]
+    text: "Montevil"
+  - name: "Contrueces"
+    position: [-620000, 4888000]
+    text: "Contrueces"
+  - name: "Río Piles"
+    position: [-590000, 4888000]
+    text: "Río Piles"
+  - name: "Vega"
+    position: [-595000, 4885000]
+    text: "Vega"
+  - name: "Roces"
+    position: [-615000, 4885000]
+    text: "Roces"
+  - name: "Pumarín"
+    position: [-625000, 4895000]
+    text: "Pumarín"
+  - name: "Perchera"
+    position: [-625000, 4890000]
+    text: "Perchera"
+  - name: "La Calzada"
+    position: [-618000, 4895000]
+    text: "La Calzada"
+
+# Points of interest
+points_of_interest:
+  - name: "Puerto Deportivo"
+    position: [-604000, 4898000]
+    type: "landmark"
+    label: "Puerto Deportivo"
+  - name: "Playa de San Lorenzo"
+    position: [-600000, 4896000]
+    type: "beach"
+    label: "Playa de San Lorenzo"
+  - name: "Universidad de Oviedo"
+    position: [-595000, 4898000]
+    type: "university"
+    label: "Universidad"
+  - name: "Estación de Tren"
+    position: [-615000, 4893000]
+    type: "transport"
+    label: "Estación RENFE"
+  - name: "Aeropuerto"
+    position: [-585000, 4903000]
+    type: "transport"
+    label: "Aeropuerto"
+  - name: "Hospital Cabueñes"
+    position: [-590000, 4890000]
+    type: "hospital"
+    label: "Hospital"

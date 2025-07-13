@@ -1,0 +1,118 @@
+name: "asturias_comarcas"
+title: "Comarcas de Asturias"
+description: "Map of Asturias showing its traditional comarcas (counties) with major cities"
+
+# Output settings
+output_width: 4000
+output_height: 2250
+background_color: "#f0f8ff"
+
+# Map bounds (Asturias region)
+bounds:
+  west: -800000
+  east: -500000
+  south: 4800000
+  north: 4950000
+
+# Data layers
+layers:
+  asturias_boundary:
+    file: "processed/asturias_boundary.geojson"
+    style:
+      fill_color: "#e6f3e6"
+      stroke_color: "#333333"
+      stroke_width: 4
+      opacity: 0.9
+      zorder: 1
+
+  coastline:
+    file: "raw/ne_10m_coastline/ne_10m_coastline.shp"
+    style:
+      fill_color: "none"
+      stroke_color: "#1f77b4"
+      stroke_width: 3
+      opacity: 1.0
+      zorder: 2
+
+  rivers:
+    file: "raw/ne_10m_rivers_lake_centerlines/ne_10m_rivers_lake_centerlines.shp"
+    style:
+      fill_color: "none"
+      stroke_color: "#4682b4"
+      stroke_width: 2
+      opacity: 0.8
+      zorder: 3
+
+  cities:
+    file: "raw/ne_10m_populated_places/ne_10m_populated_places.shp"
+    filter: "ADM1NAME == 'Asturias'"
+    style:
+      fill_color: "#ff4444"
+      stroke_color: "#800000"
+      stroke_width: 1
+      opacity: 1.0
+      zorder: 4
+    labels:
+      field: "NAME"
+      font_size: 32
+      font_color: "white"
+      font_weight: "bold"
+
+# Custom labels for Asturian comarcas
+custom_labels:
+  - name: "Eo-Navia"
+    position: [-780000, 4890000]
+    text: "Eo-Navia"
+  - name: "Narcea"
+    position: [-720000, 4860000]
+    text: "Narcea"
+  - name: "Avilés"
+    position: [-650000, 4900000]
+    text: "Avilés"
+  - name: "Oviedo"
+    position: [-620000, 4870000]
+    text: "Oviedo"
+  - name: "Gijón"
+    position: [-585000, 4895000]
+    text: "Gijón"
+  - name: "Caudal"
+    position: [-620000, 4840000]
+    text: "Caudal"
+  - name: "Nalón"
+    position: [-600000, 4830000]
+    text: "Nalón"
+  - name: "Siero"
+    position: [-600000, 4880000]
+    text: "Siero"
+  - name: "Carreño"
+    position: [-605000, 4900000]
+    text: "Carreño"
+  - name: "Gozón"
+    position: [-625000, 4905000]
+    text: "Gozón"
+  - name: "Oriente"
+    position: [-540000, 4870000]
+    text: "Oriente"
+
+# Points of interest
+points_of_interest:
+  - name: "Gijón"
+    position: [-585000, 4895000]
+    type: "city"
+    label: "Gijón/Xixón"
+  - name: "Oviedo"
+    position: [-620000, 4870000]
+    type: "city"
+    label: "Oviedo/Uviéu"
+  - name: "Avilés"
+    position: [-650000, 4900000]
+    type: "city"
+    label: "Avilés"
+  - name: "Mieres"
+    position: [-620000, 4840000]
+    type: "city"
+    label: "Mieres"
+  - name: "Langreo"
+    position: [-610000, 4835000]
+    type: "city"
+    label: "Langreo"

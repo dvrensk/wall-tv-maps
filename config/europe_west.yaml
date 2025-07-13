@@ -1,0 +1,73 @@
+name: "europe_west"
+title: "Europa Occidental"
+description: "Map of Western Europe showing countries and major cities"
+
+# Output settings
+output_width: 4000
+output_height: 2250
+background_color: "#e6f3ff"
+
+# Map bounds (Western Europe)
+bounds:
+  west: -1200000
+  east: 1500000
+  south: 4000000
+  north: 7000000
+
+# Data layers
+layers:
+  countries:
+    file: "raw/ne_10m_admin_0_countries/ne_10m_admin_0_countries.shp"
+    filter: "CONTINENT == 'Europe'"
+    style:
+      fill_color: "#e6f3e6"
+      stroke_color: "#333333"
+      stroke_width: 2
+      opacity: 0.9
+      zorder: 1
+    labels:
+      field: "NAME"
+      font_size: 28
+      font_color: "white"
+      font_weight: "bold"
+
+  coastline:
+    file: "raw/ne_10m_coastline/ne_10m_coastline.shp"
+    style:
+      fill_color: "none"
+      stroke_color: "#1f77b4"
+      stroke_width: 2
+      opacity: 1.0
+      zorder: 2
+
+  major_cities:
+    file: "raw/ne_10m_populated_places/ne_10m_populated_places.shp"
+    filter: "CONTINENT == 'Europe' and POP_MAX > 1000000"
+    style:
+      fill_color: "#ff4444"
+      stroke_color: "#800000"
+      stroke_width: 1
+      opacity: 1.0
+      zorder: 3
+    labels:
+      field: "NAME"
+      font_size: 20
+      font_color: "white"
+      font_weight: "bold"
+
+# Focus countries (Western Europe)
+focus_countries:
+  - "Spain"
+  - "France"
+  - "Germany"
+  - "Italy"
+  - "United Kingdom"
+  - "Netherlands"
+  - "Belgium"
+  - "Switzerland"
+  - "Austria"
+  - "Portugal"
+  - "Ireland"
+  - "Denmark"
+  - "Sweden"
+  - "Norway"

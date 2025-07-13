@@ -1,0 +1,105 @@
+name: "spain_regions"
+title: "Comunidades Autónomas de España"
+description: "Map of Spain's 17 autonomous communities with clear labels for wall display"
+
+# Output settings
+output_width: 4000
+output_height: 2250
+background_color: "#f0f8ff"  # Light blue background
+
+# Map bounds (Spain)
+bounds:
+  west: -1100000   # Web Mercator coordinates
+  east: 500000
+  south: 4200000
+  north: 5500000
+
+# Data layers
+layers:
+  countries:
+    file: "raw/ne_10m_admin_0_countries/ne_10m_admin_0_countries.shp"
+    filter: "NAME == 'Spain'"
+    style:
+      fill_color: "#e6f3e6"  # Light green for land
+      stroke_color: "#333333"
+      stroke_width: 2
+      opacity: 1.0
+      zorder: 1
+
+  regions:
+    file: "raw/ne_10m_admin_1_states_provinces/ne_10m_admin_1_states_provinces.shp"
+    filter: "admin == 'Spain'"
+    style:
+      fill_color: "#e6f3e6"  # Light green for regions
+      stroke_color: "#666666"
+      stroke_width: 3
+      opacity: 0.8
+      zorder: 2
+    labels:
+      field: "name"
+      font_size: 36
+      font_color: "white"
+      font_weight: "bold"
+
+  coastline:
+    file: "raw/ne_10m_coastline/ne_10m_coastline.shp"
+    style:
+      fill_color: "none"
+      stroke_color: "#1f77b4"
+      stroke_width: 2
+      opacity: 1.0
+      zorder: 3
+
+# Custom labels for specific regions (Spanish names)
+custom_labels:
+  - name: "Galicia"
+    position: [-635000, 4950000]
+    text: "Galicia"
+  - name: "Asturias"
+    position: [-580000, 4850000]
+    text: "Asturias"
+  - name: "Cantabria"
+    position: [-420000, 4850000]
+    text: "Cantabria"
+  - name: "País Vasco"
+    position: [-280000, 4850000]
+    text: "País Vasco"
+  - name: "Navarra"
+    position: [-180000, 4750000]
+    text: "Navarra"
+  - name: "La Rioja"
+    position: [-280000, 4700000]
+    text: "La Rioja"
+  - name: "Aragón"
+    position: [-80000, 4650000]
+    text: "Aragón"
+  - name: "Cataluña"
+    position: [180000, 4650000]
+    text: "Cataluña"
+  - name: "Castilla y León"
+    position: [-480000, 4650000]
+    text: "Castilla y León"
+  - name: "Madrid"
+    position: [-380000, 4500000]
+    text: "Madrid"
+  - name: "Castilla-La Mancha"
+    position: [-280000, 4450000]
+    text: "Castilla-La Mancha"
+  - name: "Comunidad Valenciana"
+    position: [-80000, 4450000]
+    text: "C. Valenciana"
+  - name: "Extremadura"
+    position: [-650000, 4450000]
+    text: "Extremadura"
+  - name: "Andalucía"
+    position: [-480000, 4250000]
+    text: "Andalucía"
+  - name: "Murcia"
+    position: [-120000, 4250000]
+    text: "Murcia"
+  - name: "Islas Baleares"
+    position: [280000, 4350000]
+    text: "I. Baleares"
+  - name: "Canarias"
+    position: [-1580000, 3250000]
+    text: "Canarias"
