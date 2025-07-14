@@ -1,0 +1,53 @@
+# Terrain Basemap Examples
+# Copy these basemap sections into your map configs
+
+# 1. TOPOGRAPHICAL (like your reference image)
+# Perfect for elevation/terrain visualization
+basemap_topo:
+  source: "OpenTopoMap"      # Elevation contours and shading
+  alpha: 0.8                 # Let terrain show through
+  zoom: 8
+
+# 2. SATELLITE IMAGERY  
+# Real terrain from space
+basemap_satellite:
+  source: "Esri.WorldImagery"
+  alpha: 0.7
+  zoom: 10
+
+# 3. TERRAIN WITH LABELS
+# Shows cities, roads, and terrain
+basemap_terrain_labels:
+  source: "Stadia.StamenTerrain"
+  alpha: 0.6
+  zoom: 8
+
+# 4. LANDSCAPE STYLE
+# Artistic terrain representation
+basemap_landscape:
+  source: "Thunderforest.Landscape"
+  alpha: 0.8
+  zoom: 8
+
+# 5. PHYSICAL RELIEF
+# Shaded relief showing mountains/valleys
+basemap_physical:
+  source: "Esri.WorldShadedRelief"
+  alpha: 0.9
+  zoom: 7
+
+# HOW TO USE:
+# Just copy the basemap section you want into your map YAML file.
+# For example, add this to any config file:
+#
+# basemap:
+#   source: "OpenTopoMap"
+#   alpha: 0.8
+#   zoom: 8
+
+# TIPS:
+# - alpha: 0.8 = 80% terrain, 20% transparent (good balance)
+# - alpha: 0.5 = 50% terrain, 50% transparent (subtle)
+# - alpha: 1.0 = 100% terrain (very strong)
+# - zoom: 8 = good detail level for country/region maps
+# - zoom: 10 = higher detail for city maps 

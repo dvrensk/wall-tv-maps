@@ -20,19 +20,19 @@ layers:
     file: "raw/ne_10m_admin_0_countries.shp"
     filter: "NAME == 'Spain'"
     style:
-      fill_color: "#e6f3e6"  # Light green for land
+      fill_color: "none"           # No fill - let terrain show through
       stroke_color: "#333333"
-      stroke_width: 2
+      stroke_width: 3
       opacity: 1.0
       zorder: 1
 
   regions:
     file: "processed/mainland_spain_autonomous_communities.geojson"
     style:
-      fill_color: "#e6f3e6"  # Light green for regions
-      stroke_color: "#666666"
-      stroke_width: 3
-      opacity: 0.8
+      fill_color: "none"           # No fill - let terrain show through  
+      stroke_color: "#2d4a2d"      # Dark green boundaries
+      stroke_width: 4
+      opacity: 1.0
       zorder: 2
     labels:
       field: "name"
@@ -48,6 +48,12 @@ layers:
       stroke_width: 2
       opacity: 1.0
       zorder: 3
+
+# Terrain basemap
+basemap:
+  source: "OpenTopoMap"      # Topographical map with elevation shading
+  alpha: 0.8                 # Slightly transparent so boundaries show clearly
+  zoom: 8                    # Zoom level for detail
 
 # Custom labels for specific regions (Spanish names)
 custom_labels:

@@ -19,10 +19,10 @@ layers:
   asturias_boundary:
     file: "processed/asturias_boundary.geojson"
     style:
-      fill_color: "#e6f3e6"
-      stroke_color: "#333333"
-      stroke_width: 4
-      opacity: 0.9
+      fill_color: "none"           # Let terrain show through
+      stroke_color: "#2d4a2d"      # Dark green boundary
+      stroke_width: 5
+      opacity: 1.0
       zorder: 1
 
   coastline:
@@ -57,6 +57,12 @@ layers:
       font_size: 32
       font_color: "white"
       font_weight: "bold"
+
+# Terrain basemap for Asturias mountains
+basemap:
+  source: "OpenTopoMap"      # Show those beautiful Asturian mountains!
+  alpha: 0.7                 # Let terrain show through
+  zoom: 10                   # Higher detail for regional map
 
 # Custom labels for Asturian comarcas
 custom_labels:

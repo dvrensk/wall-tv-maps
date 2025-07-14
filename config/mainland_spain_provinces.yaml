@@ -14,15 +14,21 @@ bounds:
   south: 4163348   # Southern Spain (Andalusia)
   north: 5470528   # Northern Spain (Asturias/Basque Country)
 
+# Terrain basemap
+basemap:
+  source: "OpenTopoMap"  # Topographical terrain with elevation shading
+  alpha: 0.8              # Allow terrain to show through
+  zoom: 8                 # Good balance of detail and readability
+
 # Data layers
 layers:
   countries:
     file: "raw/ne_10m_admin_0_countries.shp"
     filter: "NAME == 'Spain'"
     style:
-      fill_color: "#f0f8f0"
-      stroke_color: "#333333"
-      stroke_width: 2
+      fill_color: "none"     # Let terrain show through
+      stroke_color: "#2c2c2c"
+      stroke_width: 3
       opacity: 1.0
       zorder: 1
 
@@ -30,9 +36,9 @@ layers:
     file: "raw/ne_10m_admin_1_states_provinces.shp"
     filter: "admin == 'Spain'"
     style:
-      fill_color: "#e8f4e8"
-      stroke_color: "#555555"
-      stroke_width: 1.5
+      fill_color: "none"     # Let terrain show through
+      stroke_color: "#8b0000" # Dark red for strong contrast
+      stroke_width: 2
       opacity: 0.9
       zorder: 2
     labels:
