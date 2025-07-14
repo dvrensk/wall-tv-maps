@@ -42,9 +42,11 @@ layers:
       zorder: 2
     labels:
       field: "name"
-      font_size: 24
+      font_size: 10
       font_color: "white"
       font_weight: "bold"
+      outline_width: 1
+      outline_color: "auto"
 
   coastline:
     file: "raw/ne_10m_coastline.shp"

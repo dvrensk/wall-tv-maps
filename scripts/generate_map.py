@@ -243,6 +243,15 @@ class MapGenerator:
             font_size = label_config.get('font_size', 12)
             font_color = label_config.get('font_color', 'black')
             font_weight = label_config.get('font_weight', 'normal')
+            outline_width = label_config.get('outline_width', 3)
+            outline_color = label_config.get('outline_color', 'auto')
+
+            # Auto-determine outline color based on font color
+            if outline_color == 'auto':
+                if font_color.lower() in ['white', '#ffffff', '#fff']:
+                    outline_color = 'black'
+                else:
+                    outline_color = 'white'
 
             # Add labels
             for idx, row in gdf.iterrows():
@@ -257,7 +266,7 @@ class MapGenerator:
                     centroid = row.geometry.centroid
                     x, y = centroid.x, centroid.y
 
-                # Add text with outline for better visibility
+                # Add text with automatic outline for better visibility
                 text = self.ax.text(
                     x, y, row[label_field],
                     fontsize=font_size,
@@ -268,9 +277,9 @@ class MapGenerator:
                     zorder=10
                 )
 
-                # Add outline effect
+                # Add smart outline effect
                 text.set_path_effects([
-                    patheffects.withStroke(linewidth=3, foreground='white')
+                    patheffects.withStroke(linewidth=outline_width, foreground=outline_color)
                 ])
 
     def add_basemap(self):
