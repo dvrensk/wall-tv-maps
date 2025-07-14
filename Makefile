@@ -14,6 +14,7 @@ help:
 	@echo "  setup          - Build Docker environment"
 	@echo "  download-data  - Download all required geodata"
 	@echo "  create-autonomous-communities - Create autonomous communities from provinces"
+	@echo "  create-provinces - Create optimized mainland Spain provinces file"
 	@echo "  all-maps       - Generate all maps"
 	@echo "  clean          - Clean generated files"
 	@echo "  shell          - Open interactive shell"
@@ -96,8 +97,15 @@ cache-clear:
 
 .PHONY: create-autonomous-communities
 create-autonomous-communities:
-	$(PYTHON_RUN) scripts/create_autonomous_communities.py --mainland-only
-	@echo "Autonomous communities data created."
+	@echo "=== Creating Autonomous Communities from Provinces ===" 
+	$(PYTHON_RUN) scripts/create_autonomous_communities.py
+	@echo "Autonomous communities file created at data/processed/mainland_spain_autonomous_communities.geojson"
+
+.PHONY: create-provinces
+create-provinces:
+	@echo "=== Creating Optimized Mainland Spain Provinces File ==="
+	$(PYTHON_RUN) scripts/create_provinces.py
+	@echo "Provinces file created at data/processed/mainland_spain_provinces.geojson"
 
 # Map generation
 .PHONY: all-maps

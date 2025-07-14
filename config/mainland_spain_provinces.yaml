@@ -33,8 +33,7 @@ layers:
       zorder: 1
 
   provinces:
-    file: "raw/ne_10m_admin_1_states_provinces.shp"
-    filter: "admin == 'Spain'"
+    file: "processed/mainland_spain_provinces.geojson"
     style:
       fill_color: "none"     # Let terrain show through
       stroke_color: "#8b0000" # Dark red for strong contrast
