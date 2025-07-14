@@ -1,4 +1,4 @@
-FROM ubuntu:22.04
+FROM ubuntu:24.04
 
 # Avoid timezone prompts
 ENV DEBIAN_FRONTEND=noninteractive
@@ -16,14 +16,23 @@ RUN apt-get update && apt-get install -y \
     python3 \
     python3-pip \
     python3-venv \
-    # GDAL and spatial libraries
+    # GDAL and spatial libraries (system packages)
     gdal-bin \
     python3-gdal \
     libgdal-dev \
+    python3-fiona \
+    python3-shapely \
+    python3-pyproj \
+    python3-rasterio \
+    # GIS Python packages from system
+    python3-geopandas \
+    python3-pandas \
+    python3-numpy \
+    python3-matplotlib \
     # PostGIS and PostgreSQL
-    postgresql-14 \
-    postgresql-14-postgis-3 \
-    postgresql-client-14 \
+    postgresql-16 \
+    postgresql-16-postgis-3 \
+    postgresql-client-16 \
     # QGIS (for command line processing)
     qgis \
     python3-qgis \
@@ -38,9 +47,13 @@ RUN apt-get update && apt-get install -y \
 # Create working directory
 WORKDIR /app
 
-# Copy requirements and install Python packages
+# Create virtual environment for additional packages not available as system packages
+RUN python3 -m venv --system-site-packages /opt/venv
+ENV PATH="/opt/venv/bin:$PATH"
+
+# Install additional packages in virtual environment
 COPY requirements.txt .
-RUN pip3 install --no-cache-dir -r requirements.txt
+RUN pip install --no-cache-dir -r requirements.txt
 
 # Create postgres user and setup PostGIS
 RUN service postgresql start && \

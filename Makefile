@@ -3,6 +3,7 @@
 # Configuration
 DOCKER_COMPOSE = docker-compose -f docker/docker-compose.yml
 PYTHON = $(DOCKER_COMPOSE) exec maps python3
+PYTHON_RUN = $(DOCKER_COMPOSE) run --rm maps python3
 DATA_DIR = data
 OUTPUT_DIR = output
 QGIS_DIR = qgis
@@ -18,6 +19,11 @@ help:
 	@echo "  shell          - Open interactive shell"
 	@echo "  qgis           - Launch QGIS"
 	@echo ""
+	@echo "Validation:"
+	@echo "  test-env       - Test Docker environment"
+	@echo "  test-python    - Test Python packages"
+	@echo "  test-scripts   - Test script functionality"
+	@echo ""
 	@echo "Individual maps:"
 	@echo "  map-gijon      - Generate Gijón maps"
 	@echo "  map-asturias   - Generate Asturias maps"
@@ -31,6 +37,32 @@ setup:
 	$(DOCKER_COMPOSE) up -d postgres
 	@echo "Environment ready. Run 'make download-data' next."
 
+# Validation targets
+.PHONY: test-env
+test-env:
+	@echo "=== Testing Docker Environment ==="
+	$(DOCKER_COMPOSE) run --rm maps ls -la
+	@echo ""
+	@echo "=== Testing Python ==="
+	$(DOCKER_COMPOSE) run --rm maps python3 --version
+
+.PHONY: test-python
+test-python:
+	@echo "=== Testing GeoPandas ==="
+	$(DOCKER_COMPOSE) run --rm maps python3 -c "import geopandas; print('✓ GeoPandas:', geopandas.__version__)" 2>/dev/null || echo "✗ GeoPandas failed"
+	@echo "=== Testing Matplotlib ==="
+	$(DOCKER_COMPOSE) run --rm maps python3 -c "import matplotlib; print('✓ Matplotlib:', matplotlib.__version__)" 2>/dev/null || echo "✗ Matplotlib failed"
+	@echo "=== Testing requests ==="
+	$(DOCKER_COMPOSE) run --rm maps python3 -c "import requests; print('✓ Requests:', requests.__version__)" 2>/dev/null || echo "✗ Requests failed"
+
+.PHONY: test-scripts
+test-scripts:
+	@echo "=== Testing download script ==="
+	$(PYTHON_RUN) scripts/download_data.py --help | head -5
+	@echo ""
+	@echo "=== Testing generate script ==="
+	$(PYTHON_RUN) scripts/generate_map.py --help | head -5 2>/dev/null || echo "generate_map.py needs to be created"
+
 .PHONY: shell
 shell:
 	$(DOCKER_COMPOSE) run --rm maps bash
@@ -42,12 +74,12 @@ qgis:
 # Data management
 .PHONY: download-data
 download-data: setup
-	$(PYTHON) scripts/download_data.py
+	$(PYTHON_RUN) scripts/download_data.py
 	@echo "Data download complete."
 
 .PHONY: process-data
 process-data:
-	$(PYTHON) scripts/process_data.py
+	$(PYTHON_RUN) scripts/process_data.py
 	@echo "Data processing complete."
 
 # Map generation
@@ -56,26 +88,26 @@ all-maps: map-gijon map-asturias map-spain map-europe
 
 .PHONY: map-gijon
 map-gijon:
-	$(PYTHON) scripts/generate_map.py --config config/gijon_districts.yaml
-	$(PYTHON) scripts/generate_map.py --config config/gijon_parks.yaml
-	$(PYTHON) scripts/generate_map.py --config config/gijon_pois.yaml
+	$(PYTHON_RUN) scripts/generate_map.py --config config/gijon_districts.yaml
+	$(PYTHON_RUN) scripts/generate_map.py --config config/gijon_parks.yaml
+	$(PYTHON_RUN) scripts/generate_map.py --config config/gijon_pois.yaml
 
 .PHONY: map-asturias
 map-asturias:
-	$(PYTHON) scripts/generate_map.py --config config/asturias_comarcas.yaml
-	$(PYTHON) scripts/generate_map.py --config config/asturias_geography.yaml
-	$(PYTHON) scripts/generate_map.py --config config/asturias_cities.yaml
+	$(PYTHON_RUN) scripts/generate_map.py --config config/asturias_comarcas.yaml
+	$(PYTHON_RUN) scripts/generate_map.py --config config/asturias_geography.yaml
+	$(PYTHON_RUN) scripts/generate_map.py --config config/asturias_cities.yaml
 
 .PHONY: map-spain
 map-spain:
-	$(PYTHON) scripts/generate_map.py --config config/spain_regions.yaml
-	$(PYTHON) scripts/generate_map.py --config config/spain_provinces.yaml
-	$(PYTHON) scripts/generate_map.py --config config/spain_geography.yaml
+	$(PYTHON_RUN) scripts/generate_map.py --config config/spain_regions.yaml
+	$(PYTHON_RUN) scripts/generate_map.py --config config/spain_provinces.yaml
+	$(PYTHON_RUN) scripts/generate_map.py --config config/spain_geography.yaml
 
 .PHONY: map-europe
 map-europe:
-	$(PYTHON) scripts/generate_map.py --config config/europe_west.yaml
-	$(PYTHON) scripts/generate_map.py --config config/iberian_peninsula.yaml
+	$(PYTHON_RUN) scripts/generate_map.py --config config/europe_west.yaml
+	$(PYTHON_RUN) scripts/generate_map.py --config config/iberian_peninsula.yaml
 
 # Utility targets
 .PHONY: clean
@@ -101,7 +133,7 @@ status:
 
 .PHONY: test
 test:
-	$(PYTHON) -m pytest scripts/tests/
+	$(PYTHON_RUN) -m pytest scripts/tests/
 
 # Development helpers
 .PHONY: format
