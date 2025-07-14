@@ -35,8 +35,8 @@ OUTPUT_DIR = Path("output")
 QGIS_DIR = Path("qgis")
 
 # Output specifications
-OUTPUT_WIDTH = 4000
-OUTPUT_HEIGHT = 2250
+DEFAULT_OUTPUT_WIDTH = 4000
+DEFAULT_OUTPUT_HEIGHT = 2250
 DPI = 300
 
 class MapGenerator:
@@ -102,9 +102,12 @@ class MapGenerator:
         """Set up the matplotlib figure and axis."""
         logger.info("Setting up map canvas")
 
-        # Calculate figure size based on output dimensions
-        fig_width = OUTPUT_WIDTH / DPI
-        fig_height = OUTPUT_HEIGHT / DPI
+        # Calculate figure size based on output dimensions from config
+        output_width = self.config.get('output_width', DEFAULT_OUTPUT_WIDTH)
+        output_height = self.config.get('output_height', DEFAULT_OUTPUT_HEIGHT)
+        
+        fig_width = output_width / DPI
+        fig_height = output_height / DPI
 
         self.fig, self.ax = plt.subplots(
             figsize=(fig_width, fig_height),
@@ -259,12 +262,10 @@ class MapGenerator:
         """Save the map to file."""
         logger.info(f"Saving map to {self.output_file}")
 
-        # Save with high DPI
+        # Save with exact dimensions (no auto-cropping)
         self.fig.savefig(
             self.output_file,
             dpi=DPI,
-            bbox_inches='tight',
-            pad_inches=0,
             facecolor=self.config.get('background_color', 'white'),
             edgecolor='none'
         )

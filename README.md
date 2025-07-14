@@ -66,7 +66,7 @@ make map-spain-regions
 ### National Scale
 - **Spain Regions**: 17 autonomous communities
 - **Spain Provinces**: 50 provinces
-- **Spain Geography**: Major rivers, mountain ranges
+- **Spain Geography**: _(planned)_ Major rivers, mountain ranges
 
 ### European Scale
 - **Western Europe**: Countries with major cities

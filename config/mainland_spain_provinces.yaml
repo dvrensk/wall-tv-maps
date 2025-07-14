@@ -7,12 +7,12 @@ output_width: 4000
 output_height: 2250
 background_color: "#f0f8ff"
 
-# Map bounds (Spain)
+# Map bounds (Mainland Spain - excludes Canary Islands)
 bounds:
-  west: -1100000
-  east: 500000
-  south: 4200000
-  north: 5500000
+  west: -1079894   # Western Portugal
+  east: 528317     # Eastern Spain (Catalonia)
+  south: 4163348   # Southern Spain (Andalusia)
+  north: 5470528   # Northern Spain (Asturias/Basque Country)
 
 # Data layers
 layers:

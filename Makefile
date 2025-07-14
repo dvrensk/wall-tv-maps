@@ -103,11 +103,10 @@ map-asturias:
 	$(PYTHON_RUN) scripts/generate_map.py --config config/asturias_geography.yaml
 	$(PYTHON_RUN) scripts/generate_map.py --config config/asturias_cities.yaml
 
-.PHONY: map-spain
-map-spain:
-	$(PYTHON_RUN) scripts/generate_map.py --config config/spain_regions.yaml
-	$(PYTHON_RUN) scripts/generate_map.py --config config/spain_provinces.yaml
-	$(PYTHON_RUN) scripts/generate_map.py --config config/spain_geography.yaml
+.PHONY: map-mainland-spain
+map-mainland-spain:
+	$(PYTHON_RUN) scripts/generate_map.py --config config/mainland_spain_regions.yaml
+	$(PYTHON_RUN) scripts/generate_map.py --config config/mainland_spain_provinces.yaml
 
 .PHONY: map-europe
 map-europe:
