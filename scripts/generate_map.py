@@ -33,6 +33,41 @@ DATA_DIR = Path("data")
 CONFIG_DIR = Path("config")
 OUTPUT_DIR = Path("output")
 QGIS_DIR = Path("qgis")
+CACHE_DIR = Path("data/cache")  # Cache directory for basemap tiles
+
+# Configure contextily cache
+CACHE_DIR.mkdir(parents=True, exist_ok=True)
+
+# Set contextily cache directory using the correct function
+import contextily as ctx
+ctx.set_cache_dir(str(CACHE_DIR))
+
+def get_cache_info():
+    """Get information about the cache directory."""
+    if not CACHE_DIR.exists():
+        return "Cache directory does not exist"
+
+    cache_files = list(CACHE_DIR.rglob('*'))
+    cache_files = [f for f in cache_files if f.is_file()]
+
+    if not cache_files:
+        return "Cache is empty"
+
+    total_size = sum(f.stat().st_size for f in cache_files)
+    size_mb = total_size / (1024 * 1024)
+
+    return f"Cache contains {len(cache_files)} files, {size_mb:.1f} MB"
+
+def clear_basemap_cache():
+    """Clear the contextily cache."""
+    if not CACHE_DIR.exists():
+        logger.info("Cache directory does not exist")
+        return
+
+    import shutil
+    shutil.rmtree(CACHE_DIR)
+    CACHE_DIR.mkdir(parents=True, exist_ok=True)
+    logger.info("Cache cleared successfully")
 
 # Output specifications
 DEFAULT_OUTPUT_WIDTH = 4000
@@ -105,7 +140,7 @@ class MapGenerator:
         # Calculate figure size based on output dimensions from config
         output_width = self.config.get('output_width', DEFAULT_OUTPUT_WIDTH)
         output_height = self.config.get('output_height', DEFAULT_OUTPUT_HEIGHT)
-        
+
         fig_width = output_width / DPI
         fig_height = output_height / DPI
 
@@ -245,8 +280,9 @@ class MapGenerator:
 
             try:
                 logger.info(f"Adding basemap: {basemap_config['source']}")
+                logger.info(f"Cache directory: {CACHE_DIR}")
 
-                # Add contextily basemap
+                # Add contextily basemap with caching enabled
                 ctx.add_basemap(
                     self.ax,
                     crs=self.data[list(self.data.keys())[0]].crs,
@@ -254,6 +290,8 @@ class MapGenerator:
                     alpha=basemap_config.get('alpha', 1.0),
                     zoom=basemap_config.get('zoom', 'auto')
                 )
+
+                logger.info("Basemap added successfully")
 
             except Exception as e:
                 logger.warning(f"Failed to add basemap: {e}")
@@ -294,14 +332,32 @@ class MapGenerator:
             raise
 
 @click.command()
-@click.option('--config', '-c', required=True, help='Path to configuration file')
+@click.option('--config', '-c', help='Path to configuration file')
 @click.option('--output', '-o', help='Output file path (overrides config)')
 @click.option('--verbose', '-v', is_flag=True, help='Verbose logging')
-def main(config, output, verbose):
+@click.option('--cache-info', is_flag=True, help='Show cache information and exit')
+@click.option('--clear-cache', is_flag=True, help='Clear basemap cache and exit')
+def main(config, output, verbose, cache_info, clear_cache):
     """Generate a map from configuration file."""
 
     if verbose:
         logging.getLogger().setLevel(logging.DEBUG)
+
+    # Handle cache management commands
+    if cache_info:
+        print(get_cache_info())
+        return
+
+    if clear_cache:
+        clear_basemap_cache()
+        return
+
+    # Require config for map generation
+    if not config:
+        click.echo("Error: --config is required for map generation")
+        ctx = click.get_current_context()
+        click.echo(ctx.get_help())
+        ctx.exit(1)
 
     try:
         generator = MapGenerator(config)

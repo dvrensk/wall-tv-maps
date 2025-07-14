@@ -18,6 +18,10 @@ help:
 	@echo "  clean          - Clean generated files"
 	@echo "  shell          - Open interactive shell"
 	@echo ""
+	@echo "Cache management:"
+	@echo "  cache-info     - Show basemap cache information"
+	@echo "  cache-clear    - Clear basemap cache (forces fresh download)"
+	@echo ""
 	@echo "Validation:"
 	@echo "  test-env       - Test Docker environment"
 	@echo "  test-python    - Test Python packages"
@@ -77,6 +81,18 @@ download-data: setup
 process-data:
 	$(PYTHON_RUN) scripts/process_data.py
 	@echo "Data processing complete."
+
+# Cache management
+.PHONY: cache-info
+cache-info:
+	@echo "=== Basemap Cache Information ==="
+	$(PYTHON_RUN) scripts/generate_map.py --cache-info
+
+.PHONY: cache-clear
+cache-clear:
+	@echo "=== Clearing Basemap Cache ==="
+	$(PYTHON_RUN) scripts/generate_map.py --clear-cache
+	@echo "Cache cleared. Next map generation will download fresh tiles."
 
 .PHONY: create-autonomous-communities
 create-autonomous-communities:
