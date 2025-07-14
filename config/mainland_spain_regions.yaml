@@ -27,8 +27,7 @@ layers:
       zorder: 1
 
   regions:
-    file: "raw/ne_10m_admin_1_states_provinces.shp"
-    filter: "admin == 'Spain'"
+    file: "processed/mainland_spain_autonomous_communities.geojson"
     style:
       fill_color: "#e6f3e6"  # Light green for regions
       stroke_color: "#666666"

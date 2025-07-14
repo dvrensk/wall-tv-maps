@@ -13,6 +13,7 @@ help:
 	@echo "Wall TV Maps - Available targets:"
 	@echo "  setup          - Build Docker environment"
 	@echo "  download-data  - Download all required geodata"
+	@echo "  create-autonomous-communities - Create autonomous communities from provinces"
 	@echo "  all-maps       - Generate all maps"
 	@echo "  clean          - Clean generated files"
 	@echo "  shell          - Open interactive shell"
@@ -76,6 +77,11 @@ download-data: setup
 process-data:
 	$(PYTHON_RUN) scripts/process_data.py
 	@echo "Data processing complete."
+
+.PHONY: create-autonomous-communities
+create-autonomous-communities:
+	$(PYTHON_RUN) scripts/create_autonomous_communities.py --mainland-only
+	@echo "Autonomous communities data created."
 
 # Map generation
 .PHONY: all-maps
