@@ -6,7 +6,6 @@ PYTHON = $(DOCKER_COMPOSE) exec maps python3
 PYTHON_RUN = $(DOCKER_COMPOSE) run --rm maps python3
 DATA_DIR = data
 OUTPUT_DIR = output
-QGIS_DIR = qgis
 
 # Default target
 .PHONY: help
@@ -17,7 +16,6 @@ help:
 	@echo "  all-maps       - Generate all maps"
 	@echo "  clean          - Clean generated files"
 	@echo "  shell          - Open interactive shell"
-	@echo "  qgis           - Launch QGIS"
 	@echo ""
 	@echo "Validation:"
 	@echo "  test-env       - Test Docker environment"
@@ -66,10 +64,6 @@ test-scripts:
 .PHONY: shell
 shell:
 	$(DOCKER_COMPOSE) run --rm maps bash
-
-.PHONY: qgis
-qgis:
-	$(DOCKER_COMPOSE) run --rm -e DISPLAY=$(DISPLAY) maps qgis
 
 # Data management
 .PHONY: download-data

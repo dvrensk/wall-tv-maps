@@ -33,9 +33,6 @@ RUN apt-get update && apt-get install -y \
     postgresql-16 \
     postgresql-16-postgis-3 \
     postgresql-client-16 \
-    # QGIS (for command line processing)
-    qgis \
-    python3-qgis \
     # Font support
     fonts-dejavu-core \
     fonts-liberation \

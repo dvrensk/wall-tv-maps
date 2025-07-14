@@ -1,5 +1,3 @@
-version: '3.8'
-
 services:
   maps:
     build:
@@ -9,9 +7,7 @@ services:
       - ..:/app
       - ../data:/app/data
       - ../output:/app/output
-      - /tmp/.X11-unix:/tmp/.X11-unix:rw
     environment:
-      - DISPLAY=${DISPLAY}
       - PYTHONPATH=/app/scripts
       - PGUSER=docker
       - PGDATABASE=gis
