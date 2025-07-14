@@ -23,6 +23,7 @@ help:
 	@echo "  test-scripts   - Test script functionality"
 	@echo ""
 	@echo "Individual maps:"
+	@echo "  generate CONFIG=file - Generate map from config file"
 	@echo "  map-gijon      - Generate Gijón maps"
 	@echo "  map-asturias   - Generate Asturias maps"
 	@echo "  map-spain      - Generate Spain maps"
@@ -79,6 +80,16 @@ process-data:
 # Map generation
 .PHONY: all-maps
 all-maps: map-gijon map-asturias map-spain map-europe
+
+.PHONY: generate
+generate:
+	@if [ -z "$(CONFIG)" ]; then \
+		echo "Usage: make generate CONFIG=config/your-config.yaml"; \
+		echo "Available configs:"; \
+		ls config/*.yaml; \
+		exit 1; \
+	fi
+	$(PYTHON_RUN) scripts/generate_map.py --config $(CONFIG)
 
 .PHONY: map-gijon
 map-gijon:

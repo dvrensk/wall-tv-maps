@@ -17,7 +17,7 @@ bounds:
 # Data layers
 layers:
   countries:
-    file: "raw/ne_10m_admin_0_countries/ne_10m_admin_0_countries.shp"
+    file: "raw/ne_10m_admin_0_countries.shp"
     filter: "CONTINENT == 'Europe'"
     style:
       fill_color: "#e6f3e6"
@@ -32,7 +32,7 @@ layers:
       font_weight: "bold"
 
   coastline:
-    file: "raw/ne_10m_coastline/ne_10m_coastline.shp"
+    file: "raw/ne_10m_coastline.shp"
     style:
       fill_color: "none"
       stroke_color: "#1f77b4"
@@ -41,7 +41,7 @@ layers:
       zorder: 2
 
   major_cities:
-    file: "raw/ne_10m_populated_places/ne_10m_populated_places.shp"
+    file: "raw/ne_10m_populated_places.shp"
     filter: "CONTINENT == 'Europe' and POP_MAX > 1000000"
     style:
       fill_color: "#ff4444"

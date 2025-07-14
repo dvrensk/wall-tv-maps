@@ -26,7 +26,7 @@ layers:
       zorder: 1
 
   coastline:
-    file: "raw/ne_10m_coastline/ne_10m_coastline.shp"
+    file: "raw/ne_10m_coastline.shp"
     style:
       fill_color: "none"
       stroke_color: "#1f77b4"

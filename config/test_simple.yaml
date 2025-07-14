@@ -17,7 +17,7 @@ bounds:
 # Data layers (minimal set for testing)
 layers:
   countries:
-    file: "raw/ne_10m_admin_0_countries/ne_10m_admin_0_countries.shp"
+    file: "raw/ne_10m_admin_0_countries.shp"
     filter: "NAME == 'Spain'"
     style:
       fill_color: "#e6f3e6"
@@ -32,7 +32,7 @@ layers:
       font_weight: "bold"
 
   coastline:
-    file: "raw/ne_10m_coastline/ne_10m_coastline.shp"
+    file: "raw/ne_10m_coastline.shp"
     style:
       fill_color: "none"
       stroke_color: "#1f77b4"

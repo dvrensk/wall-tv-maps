@@ -26,7 +26,7 @@ layers:
       zorder: 1
 
   coastline:
-    file: "raw/ne_10m_coastline/ne_10m_coastline.shp"
+    file: "raw/ne_10m_coastline.shp"
     style:
       fill_color: "none"
       stroke_color: "#1f77b4"
@@ -35,7 +35,7 @@ layers:
       zorder: 2
 
   rivers:
-    file: "raw/ne_10m_rivers_lake_centerlines/ne_10m_rivers_lake_centerlines.shp"
+    file: "raw/ne_10m_rivers_lake_centerlines.shp"
     style:
       fill_color: "none"
       stroke_color: "#4682b4"
@@ -44,7 +44,7 @@ layers:
       zorder: 3
 
   cities:
-    file: "raw/ne_10m_populated_places/ne_10m_populated_places.shp"
+    file: "raw/ne_10m_populated_places.shp"
     filter: "ADM1NAME == 'Asturias'"
     style:
       fill_color: "#ff4444"

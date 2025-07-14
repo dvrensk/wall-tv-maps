@@ -17,7 +17,7 @@ bounds:
 # Data layers
 layers:
   countries:
-    file: "raw/ne_10m_admin_0_countries/ne_10m_admin_0_countries.shp"
+    file: "raw/ne_10m_admin_0_countries.shp"
     filter: "NAME == 'Spain'"
     style:
       fill_color: "#f0f8f0"
@@ -27,7 +27,7 @@ layers:
       zorder: 1
 
   provinces:
-    file: "raw/ne_10m_admin_1_states_provinces/ne_10m_admin_1_states_provinces.shp"
+    file: "raw/ne_10m_admin_1_states_provinces.shp"
     filter: "admin == 'Spain'"
     style:
       fill_color: "#e8f4e8"
@@ -42,7 +42,7 @@ layers:
       font_weight: "bold"
 
   coastline:
-    file: "raw/ne_10m_coastline/ne_10m_coastline.shp"
+    file: "raw/ne_10m_coastline.shp"
     style:
       fill_color: "none"
       stroke_color: "#1f77b4"

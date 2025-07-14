@@ -66,7 +66,7 @@ def download_natural_earth_data():
     """Download Natural Earth data."""
     logger.info("Downloading Natural Earth data")
 
-    base_url = "https://www.naturalearthdata.com/http//www.naturalearthdata.com/download"
+    base_url = "https://naciscdn.org/naturalearth"
 
     datasets = [
         # Physical data
