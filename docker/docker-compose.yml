@@ -11,6 +11,8 @@ services:
       - PYTHONPATH=/app/scripts
       - PGUSER=docker
       - PGDATABASE=gis
+      - STADIA_API_KEY=${STADIA_API_KEY}
+      - THUNDERFOREST_API_KEY=${THUNDERFOREST_API_KEY}
     network_mode: host
     stdin_open: true
     tty: true

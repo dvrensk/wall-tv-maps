@@ -291,11 +291,49 @@ class MapGenerator:
                 logger.info(f"Adding basemap: {basemap_config['source']}")
                 logger.info(f"Cache directory: {CACHE_DIR}")
 
+                # Handle API keys for providers that require them
+                source_name = basemap_config['source']
+                source = source_name
+
+                # Stadia Maps API key handling
+                if 'Stadia.' in source_name:
+                    api_key = os.getenv('STADIA_API_KEY')
+                    if api_key:
+                        # Create provider object with API key for Stadia Maps
+                        provider_parts = source_name.split('.')
+                        if len(provider_parts) == 2:
+                            provider_group = getattr(ctx.providers, provider_parts[0])
+                            provider_class = getattr(provider_group, provider_parts[1])
+                            source = provider_class(api_key=api_key)
+                            # Modify URL to include API key as per Stadia docs
+                            source["url"] = source["url"] + "?api_key={api_key}"
+                            logger.info("Using Stadia API key from environment")
+                        else:
+                            logger.warning(f"Invalid Stadia provider format: {source_name}")
+                    else:
+                        logger.warning("STADIA_API_KEY not found in environment")
+
+                # Thunderforest API key handling
+                elif 'Thunderforest.' in source_name:
+                    api_key = os.getenv('THUNDERFOREST_API_KEY')
+                    if api_key and api_key != 'none-yet':
+                        # Get the provider and set the API key
+                        provider_parts = source_name.split('.')
+                        if len(provider_parts) == 2:
+                            provider_group = getattr(ctx.providers, provider_parts[0])
+                            source = getattr(provider_group, provider_parts[1]).copy()
+                            source['apikey'] = api_key
+                            logger.info("Using Thunderforest API key from environment")
+                        else:
+                            logger.warning(f"Invalid Thunderforest provider format: {source_name}")
+                    else:
+                        logger.warning("THUNDERFOREST_API_KEY not found in environment or set to 'none-yet'")
+
                 # Add contextily basemap with caching enabled
                 ctx.add_basemap(
                     self.ax,
                     crs=self.data[list(self.data.keys())[0]].crs,
-                    source=basemap_config['source'],
+                    source=source,
                     alpha=basemap_config.get('alpha', 1.0),
                     zoom=basemap_config.get('zoom', 'auto')
                 )
